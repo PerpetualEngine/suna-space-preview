@@ -44,6 +44,8 @@
   .slide .ix{position:absolute;bottom:13px;right:18px;font-size:8.5px;color:rgba(255,255,255,.6)}
   .slides img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:5px;box-shadow:var(--sh);display:block}
   .capnote{font-size:13.5px;color:var(--sub);font-style:italic;margin-top:18px;font-family:var(--serif)}
+  .postgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:8px}
+  .postgrid img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:5px;box-shadow:var(--sh);display:block}
   /* video */
   .vidrow{display:flex;gap:38px;margin-top:10px;align-items:flex-start}
   .phone{flex:none;width:286px;height:508px;border-radius:34px;background:#000;padding:9px;box-shadow:var(--sh-h);position:relative}
@@ -125,6 +127,7 @@
     main{padding:0 18px 84px} section{padding:42px 0} h1{font-size:36px}
     header .hdr-r{display:none}
     .slides{grid-template-columns:1fr 1fr;gap:11px}
+    .postgrid{grid-template-columns:1fr 1fr}
     .slide .ln{font-size:15px;padding:14px 13px}.slide.hook .ln{font-size:16px}
     .vidrow{flex-direction:column;gap:20px}
     .phone{width:100%;max-width:300px;height:auto;aspect-ratio:9/16;margin:0 auto}
@@ -172,6 +175,18 @@
       <img src="photos/caro6.jpg" alt="Carousel slide 6">
     </div>
     <p class="capnote">A mix of your photography and branded slides, built in your voice. Ready to post.</p>
+  </section>
+
+  <section>
+    <span class="label">Single posts</span>
+    <h2>Standalone posts, in your bolder voice.</h2>
+    <p class="whatsub">The same teaching, as single scroll-stoppers, in the voice your feed already speaks.</p>
+    <div class="postgrid">
+      <img src="photos/post1.jpg" alt="Single post 1">
+      <img src="photos/post2.jpg" alt="Single post 2">
+      <img src="photos/post3.jpg" alt="Single post 3">
+      <img src="photos/post4.jpg" alt="Single post 4">
+    </div>
   </section>
 
   <section>
