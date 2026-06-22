@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What your content could look like · Suna Space</title>
+<style>
+  :root{
+    --bg:#ffffff; --ink:#18191b; --ink-d:#121212; --sub:#79716b; --line:#ececea; --panel:#f2f1f0;
+    --green:#c9f57e; --green-ink:#083300; --green-deep:#5aa31c;
+    --rose:#9d7274; --gold:#bf9b53; --warm:#3a322e;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Hoefler Text",Georgia,serif;
+    --sh:0 2px 8px rgba(20,20,15,.05); --sh-h:0 14px 40px rgba(20,20,15,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Helvetica Neue",Helvetica,"Inter",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;letter-spacing:-.011em;-webkit-font-smoothing:antialiased}
+  header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.86);backdrop-filter:saturate(160%) blur(16px);border-bottom:1px solid var(--line)}
+  .hwrap{max-width:940px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:14px 28px}
+  .pe{width:30px;height:30px;border-radius:9px;background:var(--ink);color:var(--green);display:grid;place-items:center;font-weight:700;font-size:13px}
+  .brandname{font-weight:600;font-size:15px;letter-spacing:-.02em;flex:1}
+  .hdr-r{font-size:12.5px;color:var(--sub);letter-spacing:.02em}
+  main{max-width:940px;margin:0 auto;padding:0 28px 110px}
+  section{padding:54px 0;border-bottom:1px solid var(--line)}
+  section:last-child{border-bottom:none}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--panel);color:var(--ink-d);font-size:12.5px;font-weight:500;padding:7px 15px;border-radius:999px}
+  .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green-deep)}
+  .label{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green-deep);margin-bottom:14px}
+  h1{font-weight:500;font-size:54px;letter-spacing:-.04em;line-height:1.0;color:var(--ink-d);margin:20px 0 16px}
+  h2{font-weight:500;font-size:30px;letter-spacing:-.03em;color:var(--ink-d);line-height:1.08}
+  .lede{font-size:18px;color:var(--sub);max-width:600px}
+  .whatsub{font-size:15px;color:var(--sub);max-width:620px;margin-top:8px}
+  .hero{padding:64px 0 50px;border-bottom:1px solid var(--line)}
+  /* note */
+  .note ol{list-style:none;counter-reset:n;padding:0;margin:18px 0 0}
+  .note li{counter-increment:n;position:relative;padding:0 0 16px 42px;font-size:16.5px;color:#34302c;max-width:680px}
+  .note li::before{content:counter(n);position:absolute;left:0;top:1px;width:27px;height:27px;background:var(--green);color:var(--green-ink);border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:600}
+  /* carousel */
+  .slides{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+  .slide{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:4px;background-size:cover;background-position:center;color:#fff;box-shadow:var(--sh)}
+  .slide::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.52) 0%,rgba(0,0,0,.14) 42%,rgba(0,0,0,.08) 100%)}
+  .slide .ln{position:absolute;top:0;left:0;right:0;padding:20px 18px;font-family:var(--serif);font-size:18px;line-height:1.26;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+  .slide.hook .ln{font-size:20px}
+  .slide .hd{position:absolute;bottom:13px;left:18px;font-size:8.5px;letter-spacing:.08em;color:rgba(255,255,255,.82)}
+  .slide .ix{position:absolute;bottom:13px;right:18px;font-size:8.5px;color:rgba(255,255,255,.6)}
+  .slides img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:5px;box-shadow:var(--sh);display:block}
+  .capnote{font-size:13.5px;color:var(--sub);font-style:italic;margin-top:18px;font-family:var(--serif)}
+  /* video */
+  .vidrow{display:flex;gap:38px;margin-top:10px;align-items:flex-start}
+  .phone{flex:none;width:286px;height:508px;border-radius:34px;background:#000;padding:9px;box-shadow:var(--sh-h);position:relative}
+  .phone video{width:100%;height:100%;border-radius:26px;object-fit:cover;display:block;background:#000;position:relative;z-index:0}
+  .phone .vtop{position:absolute;top:9px;left:9px;right:9px;height:120px;border-radius:26px 26px 0 0;background:linear-gradient(180deg,rgba(0,0,0,.62),rgba(0,0,0,0));pointer-events:none;z-index:1}
+  .phone .vbot{position:absolute;bottom:9px;left:9px;right:9px;height:210px;border-radius:0 0 26px 26px;background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,0));pointer-events:none;z-index:1}
+  .phone .lower{position:absolute;top:20px;left:22px;right:22px;pointer-events:none;font-family:var(--serif);font-size:20px;line-height:1.22;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.8);z-index:2}
+  .phone .subs{position:absolute;left:16px;right:16px;bottom:128px;text-align:center;pointer-events:none;z-index:2;font-family:"Helvetica Neue",Helvetica,sans-serif;font-weight:600;font-size:16.5px;line-height:1.28;color:#fff;text-shadow:0 1px 2px #000,0 0 7px rgba(0,0,0,.95)}
+  .phone .subs span{color:rgba(255,255,255,.42);transition:color .1s ease}
+  .phone .subs span.wp{color:#fff}
+  .phone .subs span.won{color:var(--green)}
+  .playhint{font-size:12.5px;color:var(--green-deep);font-weight:600;margin-top:12px;display:flex;align-items:center;gap:7px}
+  .vidbody{flex:1}
+  .vidbody h4{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green-deep);margin:16px 0 7px}
+  .vidbody h4:first-child{margin-top:0}
+  .vidbody p{font-size:15px;color:#34302c;margin:9px 0;font-family:var(--serif)}
+  /* clip grid */
+  .clipgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:30px}
+  .clipcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;box-shadow:var(--sh)}
+  .clipvid{display:block;width:100%;max-width:200px;margin:0 auto 13px;aspect-ratio:9/16;border-radius:13px;background:#000;object-fit:cover;box-shadow:var(--sh)}
+  .clipcard .ts{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--green-deep);background:#f6ffe9;border:1px solid #d8efb4;border-radius:999px;padding:3px 9px;margin-bottom:9px}
+  .clipcard b{display:block;font-family:var(--serif);font-size:16px;color:var(--ink-d);line-height:1.28;margin-bottom:6px;letter-spacing:-.01em}
+  .clipcard .cc{font-size:13px;color:var(--sub);line-height:1.5}
+  /* email card */
+  .card{border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--sh);overflow:hidden;margin-top:10px;max-width:620px}
+  .card .bar{background:var(--panel);padding:14px 22px;border-bottom:1px solid var(--line);font-size:13px;color:var(--sub)}
+  .card .bar b{color:var(--ink-d)}
+  .card .body{padding:24px 28px;font-family:var(--serif)}
+  .card .body p{font-size:15px;margin:11px 0;line-height:1.62;color:#34302c}
+  .card .body .si{font-style:italic;color:var(--rose);margin-top:14px}
+  /* quote */
+  .quote{position:relative;height:520px;max-width:680px;border-radius:14px;overflow:hidden;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;text-align:center;margin-top:10px;box-shadow:var(--sh)}
+  .quote::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.4)}
+  .quote .q{position:relative;color:#fff;font-family:var(--serif);font-size:27px;line-height:1.4;font-style:italic;max-width:520px;padding:0 40px;text-shadow:0 1px 16px rgba(0,0,0,.5)}
+  .quote .by{position:absolute;bottom:24px;left:0;right:0;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+  /* practice */
+  .practice{background:#f6ffe9;border:1px solid #d8efb4;border-radius:16px;padding:28px 32px;margin-top:10px;max-width:660px;font-family:var(--serif)}
+  .practice .jft{font-family:"Helvetica Neue",sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--green-deep);margin-bottom:14px;display:block}
+  .practice p{font-size:16px;margin:11px 0;color:#34302c}
+  /* blog */
+  .blog{max-width:680px;font-family:var(--serif);margin-top:10px}
+  .blog h3{font-size:25px;font-weight:600;letter-spacing:-.02em;color:var(--ink-d);margin-bottom:14px;font-family:"Helvetica Neue",sans-serif}
+  .blog p{font-size:15px;margin:12px 0;line-height:1.66;color:#34302c}
+  /* seo */
+  .kw{width:100%;border-collapse:collapse;margin-top:10px;max-width:680px;font-size:14px}
+  .kw th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);padding:0 6px 8px;border-bottom:1px solid var(--line)}
+  .kw td{border-bottom:1px solid var(--line);padding:11px 6px;vertical-align:top;color:#34302c}
+  .kw td.k{font-weight:600;color:var(--ink-d);font-family:var(--serif);font-size:15px}
+  .kw td.w{color:var(--sub)}
+  .seo{max-width:680px;font-family:var(--serif);margin-top:24px;border:1px solid var(--line);border-radius:14px;padding:24px 28px;box-shadow:var(--sh)}
+  .seo .tk{font-family:"Helvetica Neue",sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green-deep);margin-bottom:12px;display:inline-block;background:#f6ffe9;border:1px solid #d8efb4;border-radius:999px;padding:4px 11px}
+  .seo h3{font-size:23px;font-weight:600;letter-spacing:-.02em;color:var(--ink-d);margin:14px 0 10px;font-family:"Helvetica Neue",sans-serif}
+  .seo h4{font-size:15px;color:var(--rose);margin:16px 0 3px;font-family:"Helvetica Neue",sans-serif;font-weight:700}
+  .seo p{font-size:14.5px;margin:7px 0;line-height:1.6;color:#34302c}
+  footer{max-width:940px;margin:0 auto;padding:36px 28px 0;display:flex;align-items:center;gap:11px;color:var(--sub);font-size:12.5px}
+  .steps3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:8px}
+  .steps3 .st{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--sh)}
+  .steps3 .st .n{width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--green-ink);display:grid;place-items:center;font-weight:600;font-size:13px;margin-bottom:13px}
+  .steps3 .st b{display:block;font-size:15.5px;letter-spacing:-.01em;color:var(--ink-d);margin-bottom:5px}
+  .steps3 .st span{font-size:13.5px;color:var(--sub);line-height:1.5}
+  .cta{background:#f6ffe9;border:1px solid #d8efb4;border-radius:18px;padding:32px;text-align:center;margin-top:26px;max-width:660px}
+  .cta h3{font-size:22px;font-weight:500;letter-spacing:-.03em;color:var(--ink-d)}
+  .cta p{max-width:520px;margin:10px auto 20px;font-size:15px;color:#34302c}
+  .cta .btn{display:inline-block;background:var(--green);color:var(--green-ink);font-weight:600;font-size:15px;padding:14px 28px;border-radius:999px;text-decoration:none;letter-spacing:-.01em}
+  /* how it works timeline */
+  .label.pe{color:#4e8c12}
+  .timeline{position:relative;margin-top:30px;max-width:680px}
+  .timeline::before{content:"";position:absolute;left:18px;top:19px;bottom:19px;width:2px;background:#eceae5}
+  .tstep{position:relative;display:flex;gap:22px;padding-bottom:34px}
+  .tstep:last-child{padding-bottom:0}
+  .tnum{position:relative;z-index:2;flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:600;font-size:15px;line-height:1}
+  .tnum.we{background:#c9f57e;color:#0d3300;border:2px solid #c9f57e}
+  .tnum.your{background:#fff;color:#18191b;border:2px solid #4e8c12}
+  .tcontent{padding-top:2px}
+  .ttag{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#4e8c12;margin-bottom:6px}
+  .ttitle{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:600;font-size:20px;color:#18191b;letter-spacing:-.015em;line-height:1.24;margin-bottom:5px}
+  .tbody{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:15px;color:#6f6d68;max-width:540px;line-height:1.62}
+  @media(max-width:720px){
+    main{padding:0 18px 84px} section{padding:42px 0} h1{font-size:36px}
+    header .hdr-r{display:none}
+    .slides{grid-template-columns:1fr 1fr;gap:11px}
+    .slide .ln{font-size:15px;padding:14px 13px}.slide.hook .ln{font-size:16px}
+    .vidrow{flex-direction:column;gap:20px}
+    .phone{width:100%;max-width:300px;height:auto;aspect-ratio:9/16;margin:0 auto}
+    .phone .vbot{height:170px}.phone .subs{bottom:108px;font-size:15px}
+    .clipgrid{grid-template-columns:1fr}
+    .quote{height:auto;aspect-ratio:4/5}.quote .q{font-size:21px;padding:0 26px}
+    .card,.practice,.blog,.cta,.seo,.kw{max-width:none}.steps3{grid-template-columns:1fr}
+    .ttitle{font-size:19px}
+  }
+</style>
+</head>
+<body>
+<header><div class="hwrap"><div class="pe">PE</div><span class="brandname">Perpetual Engine</span><span class="hdr-r">for Suna Space</span></div></header>
+
+<main>
+  <section class="hero">
+    <span class="eyebrow">A content sample</span>
+    <h1>What your content<br>could look like.</h1>
+    <p class="lede">One of your videos, turned into a full week of content across every surface. The clips, the carousel, the emails, the blogs. In your voice and your brand, without any more of your input.</p>
+  </section>
+
+  <section class="note">
+    <span class="label">A note before you begin</span>
+    <h2>What this shows.</h2>
+    <ol>
+      <li>Everything here comes from one of your videos, a single sixteen-minute conversation. We do this every week, from the material you already have.</li>
+      <li>Every piece is drawn only from your own words, and held to your voice.</li>
+      <li>The carousel, the clips, and the quote card use your own photography and art. Each one is ready to publish.</li>
+      <li>Read any single piece and ask one question. Does this sound like you. That is the whole test.</li>
+    </ol>
+  </section>
+
+  <section>
+    <span class="label pe">How it works</span>
+    <h2>From your videos to a steady feed.</h2>
+    <p class="whatsub">Two light touches from you. The rest is on us, every week.</p>
+    <div class="timeline">
+      <div class="tstep"><div class="tnum your">1</div><div class="tcontent"><div class="ttag">Your part</div><div class="ttitle">You share your videos</div><div class="tbody">Send us your long-form videos. This is the only step that needs you.</div></div></div>
+      <div class="tstep"><div class="tnum we">2</div><div class="tcontent"><div class="ttag">We handle it</div><div class="ttitle">We set up your engine</div><div class="tbody">We study your voice, your brand, and your strongest moments, and build your content system around them.</div></div></div>
+      <div class="tstep"><div class="tnum we">3</div><div class="tcontent"><div class="ttag">We handle it</div><div class="ttitle">We turn them into everything</div><div class="tbody">Reels, carousels, blogs, newsletters, and emails. Each one written and designed in your voice.</div></div></div>
+      <div class="tstep"><div class="tnum we">4</div><div class="tcontent"><div class="ttag">We handle it</div><div class="ttitle">We create fresh content too</div><div class="tbody">Every week we research what is rising in your niche and create original, timely pieces, so your feed always feels current.</div></div></div>
+      <div class="tstep"><div class="tnum your">5</div><div class="tcontent"><div class="ttag">Your part</div><div class="ttitle">You approve, we publish</div><div class="tbody">A quick review from you, and it goes out on a steady cadence.</div></div></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="label">Carousel</span>
+    <h2>A teaching carousel, on your photos and your brand.</h2>
+    <p class="whatsub">Six slides from your video, mixing your own photography with branded slides in your colours and gold sacred-geometry.</p>
+    <div class="slides">
+      <img src="photos/caro1.jpg" alt="Carousel slide 1">
+      <img src="photos/caro2.jpg" alt="Carousel slide 2">
+      <img src="photos/caro3.jpg" alt="Carousel slide 3">
+      <img src="photos/caro4.jpg" alt="Carousel slide 4">
+      <img src="photos/caro5.jpg" alt="Carousel slide 5">
+      <img src="photos/caro6.jpg" alt="Carousel slide 6">
+    </div>
+    <p class="capnote">A mix of your photography and branded slides, built in your voice. Ready to post.</p>
+  </section>
+
+  <section>
+    <span class="label">Short-form video</span>
+    <h2>Ten short-form clips, from one video.</h2>
+    <p class="whatsub">A single sixteen-minute conversation holds a week of clips. Here is the featured one, captioned, and nine more below. Every one is a real cut from the same video. Tap any to play.</p>
+    <div class="vidrow">
+      <div class="phone">
+        <video controls playsinline preload="metadata" poster="poster.jpg"><source src="clip.mp4" type="video/mp4"></video>
+        <div class="vtop"></div><div class="vbot"></div>
+        <div class="lower">I stopped looking outside myself for the answer.</div>
+        <div class="subs"></div>
+      </div>
+      <div class="vidbody">
+        <div class="playhint">▶ &nbsp;Click the video to play</div>
+        <h4>What you say</h4>
+        <p>"The misconception that you can find anything outside of you. It was really through starting to practice in a more serious way to always look within. We have all the answers. Everything we need is already there. It is just our conditioning and our mind that is blocking it."</p>
+        <h4>The caption we would run</h4>
+        <p>You can collect every teacher and technique out there. For me, the real shift came from looking inward, through slow and serious practice.</p>
+        <p>Where in your life are you still searching outside yourself?</p>
+      </div>
+    </div>
+    <div class="clipgrid">
+      <div class="clipcard"><video class="clipvid" controls playsinline preload="none" poster="clips/form.jpg"><source src="clips/form.mp4" type="video/mp4"></video><span class="ts">01:43</span><b>What I actually do when I tattoo someone</b><span class="cc">Translating a person's essence into a geometric form on skin.</span></div>
+      <div class="clipcard"><video class="clipvid" controls playsinline preload="none" poster="clips/silence.jpg"><source src="clips/silence.mp4" type="video/mp4"></video><span class="ts">03:58</span><b>The first symbol I ever drew, in silence</b><span class="cc">The retreat where this work quietly found me.</span></div>
+      <div class="clipcard"><video class="clipvid" controls playsinline preload="none" poster="clips/seven.jpg"><source src="clips/seven.mp4" type="video/mp4"></video><span class="ts">06:45</span><b>Three strangers asked in one week</b><span class="cc">The moment I stopped doubting the path.</span></div>
+      <div class="clipcard"><video class="clipvid" controls playsinline preload="none" poster="clips/trust.jpg"><source src="clips/trust.mp4" type="video/mp4"></video><span class="ts">07:48</span><b>Trust yourself. Trust life.</b><span class="cc">Why I believe life is quietly on our side.</span></div>
+      <div class="clipcard"><video class="clipvid" controls playsinline preload="none" poster="clips/listen.jpg"><source src="clips/listen.mp4" type="video/mp4"></video><span class="ts">08:42</span><b>Getting quiet enough to actually listen</b><span class="cc">On letting go and hearing what feels aligned.</span></div>
+      <div class="clipcard"><video class="clipvid" controls playsinline preload="none" poster="clips/purpose.jpg"><source src="clips/purpose.mp4" type="video/mp4"></video><span class="ts">09:13</span><b>Your purpose may be simpler than you think</b><span class="cc">On joy and presence as a kind of service.</span></div>
+      <div class="clipcard"><video class="clipvid" controls playsinline preload="none" poster="clips/pain.jpg"><source src="clips/pain.mp4" type="video/mp4"></video><span class="ts">10:09</span><b>You build trust by making peace with pain</b><span class="cc">Why the hard seasons are the real teachers.</span></div>
+      <div class="clipcard"><video class="clipvid" controls playsinline preload="none" poster="clips/choose.jpg"><source src="clips/choose.mp4" type="video/mp4"></video><span class="ts">11:52</span><b>Why people choose the pain of a tattoo</b><span class="cc">Pain as a conscious, meaningful choice.</span></div>
+      <div class="clipcard"><video class="clipvid" controls playsinline preload="none" poster="clips/kid.jpg"><source src="clips/kid.mp4" type="video/mp4"></video><span class="ts">13:16</span><b>An intensely emotional kid with no tools</b><span class="cc">How I learned to work with my own mind.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="label">Email / newsletter</span>
+    <h2>A note to your list, from the whole conversation.</h2>
+    <p class="whatsub">Warm, honest, with one soft door at the end. Drawn from across the full video.</p>
+    <div class="card">
+      <div class="bar"><b>Subject:</b> The tools I wish I'd had at twenty</div>
+      <div class="body">
+        <p>I was an intensely emotional child, and no one ever taught me what to do with it.</p>
+        <p>For a long time that meant being run by my own mind. The voice that said I was not good enough, not worthy, too much. If you make things for a living, you have probably met that voice too.</p>
+        <p>In my mid-twenties I started collecting tools. Meditation that felt impossible at first. Silent retreats. Therapy. Slow, unglamorous practice. One by one, they gave me a way to work with my mind, rather than be dragged behind it.</p>
+        <p>What surprised me most was how much steadiness came from the hard seasons. Every painful stretch I moved through left me a little more certain that there is nothing that can break me. That kind of trust runs deeper than a mood. Your body earns it by living through things.</p>
+        <p>If you are in a harder season right now, I want you to know it is doing something. It is quietly showing you how strong you already are.</p>
+        <p>Just for today, name one hard thing you have already survived. Let yourself feel that you are still standing.</p>
+        <p>When you want company for the deeper work, my door is open.</p>
+        <p class="si">With love,<br>Suna</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="label">Quote card</span>
+    <h2>A single line of your teaching, on your imagery.</h2>
+    <p class="whatsub">Verbatim from the video. Clean, unadorned, instantly recognizable as yours.</p>
+    <div class="quote" style="background-image:url('photos/cosmic.jpg')">
+      <div class="q">The most powerful transformative processes are all painful.</div>
+      <div class="by">@sunaspace</div>
+    </div>
+  </section>
+
+  <section>
+    <span class="label">A practice</span>
+    <h2>A "just for today" invitation to carry with you.</h2>
+    <p class="whatsub">A small, usable tool, in the spirit of how you guide people back to stillness.</p>
+    <div class="practice">
+      <span class="jft">Just for today</span>
+      <p>Find one quiet moment and let your eyes rest on a single shape. A circle you draw, a candle flame, a symbol you love.</p>
+      <p>Keep your gaze soft and steady, and let your breath slow on its own. When your attention wanders, and it will, bring it gently back to the shape.</p>
+      <p>Stay a minute or two. It is one of the simplest tools there is for settling a busy mind, and it asks nothing of you but a little stillness.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="label">Blog excerpt</span>
+    <h2>A long-form piece for your site, from the same video.</h2>
+    <p class="whatsub">In your voice, drawn from across the whole conversation. Shown trimmed.</p>
+    <div class="blog">
+      <h3>On trust, tools, and the long way to your own work</h3>
+      <p>People often ask how I found this work. The honest answer is that I stopped looking for it, and it arrived.</p>
+      <p>Years ago I let go of most of what I had built. A career in costume and stage design, a relationship, a sense of who I was supposed to be. I went into silence and into a yoga community, and I sat in meditation every morning, which at the time felt close to impossible. One morning I simply started to draw, line by line, thought by thought. That was the first symbol. Within a week, three different people had asked me to tattoo what I had drawn onto their skin. I had never trained as a tattoo artist. I knew, in that moment, that this was the work.</p>
+      <p>What made it possible was years of slow inner work. I was an intensely emotional child with no tools to handle it, and in my twenties I started gathering them. Meditation, silent retreats, therapy, self-inquiry. None of it was quick and none of it was glamorous, but together they taught me how to be with my own mind rather than be run by it.</p>
+      <p>The deeper lesson was about trust. To trust yourself and to trust life, I think you have to move through genuinely difficult times and make some peace with pain. The most powerful transformations I know of are the painful ones. Each hard season I survived left me more certain that there is very little that can actually break me, and that I can build something honest and peaceful on the other side.</p>
+      <p>This is also why pain sits at the centre of what I do. When someone chooses to be tattooed, they choose a little pain on purpose, in exchange for something lasting that means a great deal to them. Pain has always been part of being alive. We are simply out of practice at meeting it, and a great deal of steadiness waits on the other side of learning how.</p>
+      <p>So when people ask for advice, I keep coming back to the same two words. Trust yourself. Then get quiet enough to hear what you already know, and let life move you from there.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="label">Built for search</span>
+    <h2>Content that gets found on Google.</h2>
+    <p class="whatsub">We research what your future clients actually type into search, then write pieces that answer it. Here is a keyword cluster for your niche, and a blog built to rank for it.</p>
+    <table class="kw">
+      <tr><th>Search term</th><th>What they are looking for</th></tr>
+      <tr><td class="k">sacred geometry tattoo meaning</td><td class="w">Researching the symbols before they commit to one.</td></tr>
+      <tr><td class="k">what is a handpoke tattoo</td><td class="w">New to the technique, comparing it to machine work.</td></tr>
+      <tr><td class="k">flower of life tattoo meaning</td><td class="w">Drawn to a specific symbol, wanting its story.</td></tr>
+      <tr><td class="k">metatron's cube tattoo meaning</td><td class="w">Drawn to a specific symbol, wanting its story.</td></tr>
+      <tr><td class="k">fine line spiritual tattoo</td><td class="w">Style-led, close to choosing an artist.</td></tr>
+      <tr><td class="k">do handpoke tattoos hurt</td><td class="w">Almost ready to book, with one last hesitation.</td></tr>
+      <tr><td class="k">geometric tattoo ideas</td><td class="w">Gathering inspiration, early in the journey.</td></tr>
+    </table>
+    <div class="seo">
+      <span class="tk">Target: sacred geometry tattoo meaning · handpoke tattoo</span>
+      <h3>Sacred Geometry Tattoo Meanings: A Handpoke Artist's Guide</h3>
+      <p>If you are drawn to sacred geometry tattoos, it helps to understand what the symbols mean before they become a part of you. Here is a short guide to the ones I am asked for most, and why I choose to place them by hand.</p>
+      <h4>What is a handpoke tattoo?</h4>
+      <p>A handpoke tattoo is made by placing each dot by hand, without a machine. It is quieter and gentler on the skin, and for sacred geometry it lets every line and point be set slowly, with intention.</p>
+      <h4>Flower of Life</h4>
+      <p>Nineteen overlapping circles that have appeared across cultures for thousands of years. It speaks to creation, unity, and the way all living things are woven together.</p>
+      <h4>Seed of Life</h4>
+      <p>The seven circles at the heart of the Flower of Life. It holds the idea of a beginning, of creation finding its very first form.</p>
+      <h4>Metatron's Cube</h4>
+      <p>Drawn from thirteen circles and holding the five Platonic solids, it stands for balance, protection, and the flow of energy through everything that exists.</p>
+      <h4>Vesica Piscis</h4>
+      <p>Two circles meeting and overlapping. The simplest picture of duality becoming unity, of two things together creating a third.</p>
+      <p>Whatever shape calls to you, the meaning matters as much as the design. If one of these is asking to become yours, I would love to draw it with you.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="label">Working together</span>
+    <h2>From one video to a steady feed.</h2>
+    <p class="whatsub">We run it every week, from the long form videos you already have.</p>
+    <div class="steps3">
+      <div class="st"><span class="n">1</span><b>You hand us your videos.</b><span>Talks, interviews, livestreams, whatever you already have.</span></div>
+      <div class="st"><span class="n">2</span><b>We draft everything.</b><span>Six to twelve clips, carousels, emails, personal and search-optimised blogs, a weekly quote and practice. All in your voice.</span></div>
+      <div class="st"><span class="n">3</span><b>You approve, we publish.</b><span>A light review each week. We carry the rest.</span></div>
+    </div>
+    <div class="cta">
+      <h3 style="margin-bottom:22px">Want to see this on other videos you own?</h3>
+      <a class="btn" href="https://calendly.com/perpetualfunnels/30min" target="_blank" rel="noopener">Let's map your first month</a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="pe">PE</div><span>Perpetual Engine · for Suna Space · a content sample</span></footer>
+
+<script>
+(function(){
+  var ph=document.querySelector('.phone'); if(!ph) return;
+  var v=ph.querySelector('video'), sub=ph.querySelector('.subs');
+  var W=[[0.00,"that"],[0.57,"I"],[0.68,"wasn't"],[1.50,"able"],[2.14,"to"],[3.08,"stay"],[3.84,"with"],[4.82,"myself"],[7.08,"and"],[7.18,"not"],[7.28,"look"],[7.40,"outside"],[7.65,"of"],[7.96,"myself."],[12.96,"Yeah,"],[13.10,"the"],[13.20,"misconception"],[14.64,"that"],[15.62,"you"],[15.81,"can"],[16.00,"find"],[16.44,"anything"],[17.00,"outside"],[17.38,"of"],[17.56,"you."],[19.36,"It"],[19.46,"was"],[19.56,"really"],[19.66,"through"],[20.08,"starting"],[21.08,"to"],[21.92,"practice"],[26.48,"in"],[26.84,"a"],[27.04,"more"],[27.36,"serious"],[28.15,"way"],[28.61,"to"],[28.81,"always"],[29.46,"look"],[30.32,"within."],[32.88,"Like"],[33.00,"we"],[33.10,"have"],[33.20,"all"],[33.46,"the"],[34.61,"answers,"],[34.96,"everything"],[35.10,"we"],[35.36,"need"],[35.92,"is"],[36.19,"already"],[36.80,"there."],[37.33,"It's"],[37.45,"just"],[37.55,"our"],[38.40,"conditioning"],[38.56,"and"],[38.93,"our"],[39.16,"mind"],[39.34,"that"],[39.72,"is"],[40.39,"blocking"],[40.68,"it."],[41.04,"There"],[41.24,"is"],[41.46,"actually"],[41.56,"no"],[41.80,"blockage."]];
+  for(var i=1;i<W.length;i++){ if(W[i][0]<=W[i-1][0]) W[i][0]=W[i-1][0]+0.06; }
+  var LINES=[], cur=[], curlen=0;
+  for(var i=0;i<W.length;i++){ var gap=i>0?W[i][0]-W[i-1][0]:0; if(cur.length&&(curlen+W[i][1].length+1>28||gap>1.0)){LINES.push(cur);cur=[];curlen=0;} cur.push(i); curlen+=W[i][1].length+1; }
+  if(cur.length) LINES.push(cur);
+  var lineOf=[]; for(var li=0;li<LINES.length;li++) for(var k=0;k<LINES[li].length;k++) lineOf[LINES[li][k]]=li;
+  var last="";
+  function ci(t){ var idx=-1; for(var i=0;i<W.length;i++){ if(W[i][0]<=t) idx=i; else break; } return idx; }
+  function render(t){
+    var c=ci(t);
+    if(c<0){ if(last!==""){sub.innerHTML="";last="";} return; }
+    var line=LINES[lineOf[c]], h="";
+    for(var k=0;k<line.length;k++){ var wi=line[k]; var cls=wi===c?"won":(wi<c?"wp":""); h+='<span class="'+cls+'">'+W[wi][1]+'</span> '; }
+    if(h!==last){ sub.innerHTML=h; last=h; }
+  }
+  var raf;
+  function loop(){ render(v.currentTime); if(!v.paused&&!v.ended) raf=requestAnimationFrame(loop); }
+  v.addEventListener("play",function(){ cancelAnimationFrame(raf); loop(); });
+  v.addEventListener("pause",function(){ cancelAnimationFrame(raf); render(v.currentTime); });
+  v.addEventListener("seeked",function(){ render(v.currentTime); });
+  v.addEventListener("timeupdate",function(){ render(v.currentTime); });
+  render(0);
+})();
+</script>
+</body>
+</html>
